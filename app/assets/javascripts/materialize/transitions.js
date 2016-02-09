@@ -1,6 +1,6 @@
 (function ($) {
   // Image transition function
-  Materialize.fadeInImage =  function(selector){
+  Materialize.fadeInImage = function(selector){
     var element = $(selector);
     element.css({opacity: 0});
     $(element).velocity({opacity: 1}, {
@@ -45,89 +45,86 @@
     });
   };
 
+  Materialize.initializeDismissable = function() {
+      // Hardcoded .staggered-list scrollFire
+      // var staggeredListOptions = [];
+      // $('ul.staggered-list').each(function (i) {
 
-  $(document).ready(function() {
-    // Hardcoded .staggered-list scrollFire
-    // var staggeredListOptions = [];
-    // $('ul.staggered-list').each(function (i) {
+      //   var label = 'scrollFire-' + i;
+      //   $(this).addClass(label);
+      //   staggeredListOptions.push(
+      //     {selector: 'ul.staggered-list.' + label,
+      //      offset: 200,
+      //      callback: 'showStaggeredList("ul.staggered-list.' + label + '")'});
+      // });
+      // scrollFire(staggeredListOptions);
 
-    //   var label = 'scrollFire-' + i;
-    //   $(this).addClass(label);
-    //   staggeredListOptions.push(
-    //     {selector: 'ul.staggered-list.' + label,
-    //      offset: 200,
-    //      callback: 'showStaggeredList("ul.staggered-list.' + label + '")'});
-    // });
-    // scrollFire(staggeredListOptions);
+      // HammerJS, Swipe navigation
 
-    // HammerJS, Swipe navigation
+      // Touch Event
+      var swipeLeft = false;
+      var swipeRight = false;
 
-    // Touch Event
-    var swipeLeft = false;
-    var swipeRight = false;
+      // Dismissible Collections
+      $('.dismissable').each(function() {
+        $(this).hammer({
+          prevent_default: false
+        }).bind('pan', function(e) {
+          if (e.gesture.pointerType === "touch") {
+            var $this = $(this);
+            var direction = e.gesture.direction;
+            var x = e.gesture.deltaX;
+            var velocityX = e.gesture.velocityX;
 
+            $this.velocity({ translateX: x
+                }, {duration: 50, queue: false, easing: 'easeOutQuad'});
 
-    // Dismissible Collections
-    $('.dismissable').each(function() {
-      $(this).hammer({
-        prevent_default: false
-      }).bind('pan', function(e) {
-        if (e.gesture.pointerType === "touch") {
-          var $this = $(this);
-          var direction = e.gesture.direction;
-          var x = e.gesture.deltaX;
-          var velocityX = e.gesture.velocityX;
+            // Swipe Left
+            if (direction === 4 && (x > ($this.innerWidth() / 2) || velocityX < -0.75)) {
+              swipeLeft = true;
+            }
 
-          $this.velocity({ translateX: x
-              }, {duration: 50, queue: false, easing: 'easeOutQuad'});
-
-          // Swipe Left
-          if (direction === 4 && (x > ($this.innerWidth() / 2) || velocityX < -0.75)) {
-            swipeLeft = true;
+            // Swipe Right
+            if (direction === 2 && (x < (-1 * $this.innerWidth() / 2) || velocityX > 0.75)) {
+              swipeRight = true;
+            }
+          }
+        }).bind('panend', function(e) {
+          // Reset if collection is moved back into original position
+          if (Math.abs(e.gesture.deltaX) < ($(this).innerWidth() / 2)) {
+            swipeRight = false;
+            swipeLeft = false;
           }
 
-          // Swipe Right
-          if (direction === 2 && (x < (-1 * $this.innerWidth() / 2) || velocityX > 0.75)) {
-            swipeRight = true;
+          if (e.gesture.pointerType === "touch") {
+            var $this = $(this);
+            if (swipeLeft || swipeRight) {
+              var fullWidth;
+              if (swipeLeft) { fullWidth = $this.innerWidth(); }
+              else { fullWidth = -1 * $this.innerWidth(); }
+
+              $this.velocity({ translateX: fullWidth,
+                }, {duration: 100, queue: false, easing: 'easeOutQuad', complete:
+                function() {
+                  $this.css('border', 'none');
+                  $this.velocity({ height: 0, padding: 0,
+                    }, {duration: 200, queue: false, easing: 'easeOutQuad', complete:
+                      function() { $this.remove(); }
+                    });
+                }
+              });
+            }
+            else {
+              $this.velocity({ translateX: 0,
+                }, {duration: 100, queue: false, easing: 'easeOutQuad'});
+            }
+            swipeLeft = false;
+            swipeRight = false;
           }
-        }
-      }).bind('panend', function(e) {
-        // Reset if collection is moved back into original position
-        if (Math.abs(e.gesture.deltaX) < ($(this).innerWidth() / 2)) {
-          swipeRight = false;
-          swipeLeft = false;
-        }
+        });
+  };
 
-        if (e.gesture.pointerType === "touch") {
-          var $this = $(this);
-          if (swipeLeft || swipeRight) {
-            var fullWidth;
-            if (swipeLeft) { fullWidth = $this.innerWidth(); }
-            else { fullWidth = -1 * $this.innerWidth(); }
-
-            $this.velocity({ translateX: fullWidth,
-              }, {duration: 100, queue: false, easing: 'easeOutQuad', complete:
-              function() {
-                $this.css('border', 'none');
-                $this.velocity({ height: 0, padding: 0,
-                  }, {duration: 200, queue: false, easing: 'easeOutQuad', complete:
-                    function() { $this.remove(); }
-                  });
-              }
-            });
-          }
-          else {
-            $this.velocity({ translateX: 0,
-              }, {duration: 100, queue: false, easing: 'easeOutQuad'});
-          }
-          swipeLeft = false;
-          swipeRight = false;
-        }
-      });
-
-    });
-
-
+  $(document).ready(Materialize.initializeDismissable);
     // time = 0
     // // Vertical Staggered list
     // $('ul.staggered-list.vertical li').velocity(
