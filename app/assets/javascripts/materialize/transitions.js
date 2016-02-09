@@ -187,5 +187,5 @@
         // });
     };
 
-    $(document).ready(initializeDismissable);
+    $(document).ready(Materialize.initializeDismissable);
 }(jQuery));
