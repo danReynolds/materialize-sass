@@ -142,7 +142,6 @@
                                     easing: 'easeOutQuad',
                                     complete: function() {
                                         $this.trigger('remove');
-                                        $this.remove();
                                     }
                                 });
                             }
