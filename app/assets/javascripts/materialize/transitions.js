@@ -125,7 +125,16 @@
                             fullWidth = -1 * $this.innerWidth();
                         }
 
-                        $this.trigger('removeItem');
+                        $this.velocity({
+                            translateX: fullWidth,
+                        }, {
+                            duration: 100,
+                            queue: false,
+                            easing: 'easeOutQuad',
+                            complete: function() {
+                                $this.trigger('removeItem');
+                            }
+                        });
                     } else {
                         $this.velocity({
                             translateX: 0,
