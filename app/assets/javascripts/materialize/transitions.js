@@ -125,27 +125,7 @@
                             fullWidth = -1 * $this.innerWidth();
                         }
 
-                        $this.velocity({
-                            translateX: fullWidth,
-                        }, {
-                            duration: 100,
-                            queue: false,
-                            easing: 'easeOutQuad',
-                            complete: function() {
-                                $this.css('border', 'none');
-                                $this.velocity({
-                                    height: 0,
-                                    padding: 0,
-                                }, {
-                                    duration: 200,
-                                    queue: false,
-                                    easing: 'easeOutQuad',
-                                    complete: function() {
-                                        $this.trigger('remove');
-                                    }
-                                });
-                            }
-                        });
+                        $this.trigger('remove');
                     } else {
                         $this.velocity({
                             translateX: 0,
