@@ -30,7 +30,7 @@
                   view.css('height', $(this).height());
               });
           } else {
-            view.css('height', img);
+            view.css('height', img.height());
           }
         }
 
