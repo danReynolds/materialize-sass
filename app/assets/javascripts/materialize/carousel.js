@@ -34,7 +34,6 @@
           }
         }
 
-        view.addClass('initialized');
         pressed = false;
         offset = target = 0;
         images = [];
