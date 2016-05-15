@@ -28,7 +28,7 @@
           var img = view.find('.carousel-item img').first();
           if (img.height() === 0) {
               view.find('.carousel-item img').first().load(function(){
-                  view.css('height', $(this).height());
+                  view.css('height', options.height || $(this).height());
               });
           } else {
             view.css('height', options.height || img.height());
