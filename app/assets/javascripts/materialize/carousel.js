@@ -9,7 +9,7 @@
         shift: 0, // spacing for center image
         padding: 0, // Padding between non center items
         full_width: false, // Change to full width styles
-        height: 400
+        height: null
       };
       options = $.extend(defaults, options);
 
@@ -31,7 +31,7 @@
                   view.css('height', $(this).height());
               });
           } else {
-            view.css('height', options.height);
+            view.css('height', options.height || img.height());
           }
         }
 
