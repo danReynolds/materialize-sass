@@ -30,7 +30,7 @@
                   view.css('height', $(this).height());
               });
           } else {
-            view.css('height', $(this).height());
+            view.css('height', img);
           }
         }
 
