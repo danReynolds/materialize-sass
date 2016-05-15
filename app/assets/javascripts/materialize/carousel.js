@@ -8,7 +8,8 @@
         dist: -100, // zoom scale TODO: make this more intuitive as an option
         shift: 0, // spacing for center image
         padding: 0, // Padding between non center items
-        full_width: false // Change to full width styles
+        full_width: false, // Change to full width styles
+        height: 400
       };
       options = $.extend(defaults, options);
 
@@ -30,7 +31,7 @@
                   view.css('height', $(this).height());
               });
           } else {
-            view.css('height', img.height());
+            view.css('height', options.height);
           }
         }
 
