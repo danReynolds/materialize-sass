@@ -20,17 +20,18 @@
 
         // Initialize
         var view = $(this);
-        // Don't double initialize.
-        if (view.hasClass('initialized')) {
-          return true;
-        }
 
         // Options
         if (options.full_width) {
           options.dist = 0;
-          imageHeight = view.find('.carousel-item img').first().load(function(){
+          var img = view.find('.carousel-item img').first();
+          if (img.height() === 0) {
+              view.find('.carousel-item img').first().load(function(){
+                  view.css('height', $(this).height());
+              });
+          } else {
             view.css('height', $(this).height());
-          });
+          }
         }
 
         view.addClass('initialized');
