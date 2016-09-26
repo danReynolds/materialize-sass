@@ -1,5 +1,5 @@
 (function ($) {
-  $(document).ready(function() {
+  $(document).on('ready turbolinks:load', function() {
 
     $(document).on('click.card', '.card', function (e) {
       if ($(this).find('> .card-reveal').length) {
@@ -20,9 +20,6 @@
           $(this).find('.card-reveal').css({ display: 'block'}).velocity("stop", false).velocity({translateY: '-100%'}, {duration: 300, queue: false, easing: 'easeInOutQuad'});
         }
       }
-
-      $('.card-reveal').closest('.card').css('overflow', 'hidden');
-
     });
 
   });

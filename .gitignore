@@ -13,3 +13,5 @@
 *.a
 mkmf.log
 *.gem
+.DS_Store
+materialize-src/
