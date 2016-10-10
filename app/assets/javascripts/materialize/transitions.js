@@ -111,7 +111,7 @@
                       } else {
                           fullWidth = -1 * $this.innerWidth();
                       }
-
+                      $this.css('transform', 'none');
                       $this.trigger('removeItem');
                   } else {
                       $this.velocity({
