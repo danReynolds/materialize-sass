@@ -111,8 +111,14 @@
                       } else {
                           fullWidth = -1 * $this.innerWidth();
                       }
-                      $this.css('transform', 'none');
                       $this.trigger('removeItem');
+                      $this.velocity({
+                          translateX: 0,
+                      }, {
+                          duration: 50,
+                          queue: false,
+                          easing: 'easeOutQuad'
+                      });
                   } else {
                       $this.velocity({
                           translateX: 0,
