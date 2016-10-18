@@ -111,13 +111,17 @@
                       } else {
                           fullWidth = -1 * $this.innerWidth();
                       }
-                      $this.trigger('removeItem');
                       $this.velocity({
-                          translateX: 0,
-                      }, {
-                          duration: 50,
+                          translateX: fullWidth,
+                        },
+                        {
+                          duration: 100,
                           queue: false,
-                          easing: 'easeOutQuad'
+                          easing: 'easeOutQuad',
+                          complete: function() {
+                            $this.css('transform', 'translate(0,0)')
+                            $this.trigger('removeItem');
+                          }
                       });
                   } else {
                       $this.velocity({
