@@ -140,5 +140,5 @@
       });
   };
 
-  $(document).on('ready turbolinks:load', Materialize.initializeDismissable);
+  $(document).on('turbolinks:load', Materialize.initializeDismissable);
 }(jQuery));
