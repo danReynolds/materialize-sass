@@ -128,8 +128,7 @@
               });
           }
         };
-
-
+        removeMenu();
 
         // Touch Event
         var panning = false;
