@@ -128,7 +128,12 @@
               });
           }
         };
-        removeMenu();
+
+        $('body').css({
+          overflow: '',
+          width: ''
+        });
+        $('#sidenav-overlay').remove();
 
         // Touch Event
         var panning = false;
